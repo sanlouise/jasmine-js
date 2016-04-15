@@ -22,11 +22,17 @@ describe('Address Book', function() {
 });
 
 describe('Async Address Book', function() {
-	it('should grab initial contacts', function() {
 		var addressBook = new AddressBook();
 
-		//Asynchronous function
-		addressBook.getInitialContacts();
+		beforeEach(function(done) {
+			addressBook.getInitialContacts(function() {
+				done();
+			});
+		});
+
+	it('should grab initial contacts', function(done) {
+		//Pass done into this function to signal that this test relies on the asynchronous test.
 		expect(addressBook.initialComplete).toBe(true);
+		done();
 	});
 });
